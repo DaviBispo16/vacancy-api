@@ -16,6 +16,11 @@ module.exports = {
         }
         students.push(student);
         return student;
+    },
+
+    findById(id) {
+        const student = students.find(student => student.id == id);
+        return student;
     }
 }
 

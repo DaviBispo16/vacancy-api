@@ -1,4 +1,4 @@
-const {findAll, create} = require('../repositories/studentsReposity');
+const {findAll, create, findById} = require('../repositories/studentsReposity');
 
 module.exports = {
     listAllStudents: (req, res) => {
@@ -26,5 +26,18 @@ module.exports = {
         },
     
 
-    
+    listStudent: async (req, res) => {
+        const {id} = req.params;
+        try {
+            const student = findById(id);    
+            if (student == undefined) {
+                return res.status(401).json({ error: 'ID não encontrado' });
+            }
+            res.status(200).json({data: student})
+
+        } catch (error) {
+            return res.status(500).json({mensagem: `${error.message}`});
+
+        }
+    }
 }
