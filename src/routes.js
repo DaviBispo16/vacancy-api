@@ -6,6 +6,6 @@ route.get('/students', listAllStudents);
 route.post('/students', createStudent);
 route.get('/students/:id', listStudent);
 route.put('/students/:id', changeStudent);
-route.delete('/student', deleteStudent);
+route.delete('/students', deleteStudent);
 
 module.exports = route;
