@@ -1,4 +1,4 @@
-const {findAll, create, findById} = require('../repositories/studentsReposity');
+const {findAll, create, findById, deleteById} = require('../repositories/studentsReposity');
 
 module.exports = {
     listAllStudents: (req, res) => {
@@ -60,6 +60,25 @@ module.exports = {
             res.json({data: student});
 
         } catch(error) {
+            return res.status(500).json({mensagem: `${error.message}`});
+        }
+    },
+
+    deleteStudent: async(req, res) => {
+        const {id} = req.body;
+        try {
+            if (!id) {
+                return res.status(400).json({ error: 'ID é obrigatório' });
+            }
+            const student = findById(id);
+            if (student == undefined) {
+                return res.status(404).json({ error: 'ID não encontrado' });
+            } 
+
+            const removeStudent = deleteById(id);
+            return res.status(204).send();
+            
+        } catch (error) {
             return res.status(500).json({mensagem: `${error.message}`});
         }
     }

@@ -21,7 +21,11 @@ module.exports = {
     findById(id) {
         const student = students.find(student => student.id == id);
         return student;
-    }
+    },
 
+    deleteById(id) {
+        students = students.filter(student => student.id !== id);
+        return true;
+    }
 }
 
