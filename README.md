@@ -32,9 +32,9 @@ Essa é a rota que será utilizada para cadastrar um novo aluno no sistema.
 ```javascript
 // POST /students
 {
-    "nome": "John",
+    "name": "John",
     "email": "johm@email.com",
-    "course_name: "English"
+    "course_name": "English"
 }
 ```
 
@@ -43,9 +43,9 @@ Essa é a rota que será utilizada para cadastrar um novo aluno no sistema.
 ```javascript
 {
     "id": "123e4567-e89b-12d3-a456-426614174000" ,
-    "nome": "John",
+    "name": "John",
     "email": "john@email.com",
-    "course_name: "English"
+    "course_name": "English"
 }
 ```
 
@@ -76,9 +76,9 @@ Essa é a rota que será chamada quando se quiser obter todos os alunos cadastra
 [
   {
     "id": "123e4567-e89b-12d3-a456-426614174000" ,
-    "nome": "John",
+    "name": "John",
     "email": "john@email.com"
-    "course_name: "English"
+    "course_name": "English"
   }
 ]
 ```
@@ -109,9 +109,9 @@ Essa é a rota que será chamada quando se deseja obter um aluno em especifíco.
 ```javascript
 {
     "id": "123e4567-e89b-12d3-a456-426614174000" ,
-    "nome": "John",
+    "name": "John",
     "email": "john@email.com",
-    "course_name: "English"
+    "course_name": "English"
   }
 ```
 
@@ -138,9 +138,9 @@ Essa é a rota que será chamada quando for necessária a alteração de um alun
 ```javascript
 // PUT /students/123e4567-e89b-12d3-a456-426614174000
 {
-    "nome": "Maria",
+    "name": "Maria",
     "email": "Maria@email.com",
-    "course_name: "Italian"
+    "course_name": "Italian"
 }
 ```
 
@@ -149,9 +149,9 @@ Essa é a rota que será chamada quando for necessária a alteração de um alun
 ```javascript
 {
     "id": "123e4567-e89b-12d3-a456-426614174000" ,
-    "nome": "Maria",
+    "name": "Maria",
     "email": "Maria@email.com",
-    "course_name: "Italian"
+    "course_name": "Italian"
 }
 ```
 
@@ -166,7 +166,7 @@ Essa é a rota que será chamada quando o for preciso remover um aluno do sistem
 - **Requisição**    
 O corpo (body) deverá possuir um objeto com a seguintes propriedade (respeitando este nome):
   - ID
-  - 
+    
 - **Resposta**  
   Em caso de **sucesso**, não deveremos enviar conteúdo no corpo (body) da resposta.  
   Em caso de **falha na validação**, a resposta deverá possuir **_status code_** apropriado, e em seu corpo (body) deverá possuir um objeto com uma propriedade **error** que deverá possuir como valor um texto explicando o motivo da falha.
@@ -175,7 +175,7 @@ O corpo (body) deverá possuir um objeto com a seguintes propriedade (respeitand
 
 ```javascript
 {
-    "id": "123e4567-e89b-12d3-a456-426614174000" ,
+    "id": "123e4567-e89b-12d3-a456-426614174000"
 }
 ```
 
