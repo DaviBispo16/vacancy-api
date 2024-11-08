@@ -1,9 +1,12 @@
-const {findAll, create, findById, deleteById} = require('../repositories/studentsReposity');
+const {PrismaClient} = require("@prisma/client");
+const prisma = new PrismaClient();
+
 
 module.exports = {
-    listAllStudents: (req, res) => {
+    listAllStudents: async (req, res) => {
         try {
-            return res.status(200).json(findAll());
+            const students = await prisma.student.findMany();
+            return res.status(200).json(students);
         } catch (error) {
             return res.status(500).json({mensagem: `${error.message}`});
         }
@@ -13,12 +16,16 @@ module.exports = {
         const {name, email, course_name} = req.body;
             try {
                 if (!name) {
-                    return res.status(400).json({ error: 'Nome é obrigatório' });
+                    return res.status(400).json({ error: 'A propriedade name é obrigatória' });
                 }
-                const student = await create(name, email, course_name);
-                return res.status(201).json({
-                    data: student
+                const student = await prisma.student.create({
+                data : {
+                    name,
+                    email,
+                    course_name
+                    }
                 });
+                return res.status(201).json(student);
     
             } catch (error) {
                 return res.status(500).json({mensagem: `${error.message}`});
@@ -29,7 +36,11 @@ module.exports = {
     listStudent: async (req, res) => {
         const {id} = req.params;
         try {
-            const student = findById(id);    
+            const student = await prisma.student.findUnique({
+                where: {
+                    id
+                }
+            });    
             if (student == undefined) {
                 return res.status(404).json({ error: 'ID não encontrado' });
             }
@@ -45,19 +56,22 @@ module.exports = {
         const {id} = req.params;
         const {name, email, course_name} = req.body;
         try {
-            const student = findById(id);
-            if (student == undefined) {
+            const updateUser = await prisma.student.update({
+                where: {
+                    id
+                },
+                data: {
+                    name,
+                    email,
+                    course_name
+                }
+            })
+            
+            if (updateUser == undefined) {
                 return res.status(404).json({ error: 'ID não encontrado' });
             } 
-
-            if (!name) {
-                return res.status(400).json({ error: 'Nome é obrigatório' });
-            }
-       
-            student.name = name;
-            student.email = email;
-            student.course_name = course_name;
-            res.json({data: student});
+    
+            res.json(updateUser);
 
         } catch(error) {
             return res.status(500).json({mensagem: `${error.message}`});
@@ -67,15 +81,16 @@ module.exports = {
     deleteStudent: async(req, res) => {
         const {id} = req.body;
         try {
-            if (!id) {
-                return res.status(400).json({ error: 'ID é obrigatório' });
-            }
-            const student = findById(id);
-            if (student == undefined) {
+            const deleteStudent = await prisma.student.delete({
+                where: {
+                    id
+                }
+            })
+
+            if (deleteStudent == undefined) {
                 return res.status(404).json({ error: 'ID não encontrado' });
             } 
 
-            const removeStudent = deleteById(id);
             return res.status(204).send();
             
         } catch (error) {
